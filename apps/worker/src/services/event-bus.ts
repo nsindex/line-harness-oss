@@ -256,10 +256,10 @@ async function executeAction(
       const msgType = action.params.messageType || 'text';
       let msg: Message;
       if (msgType === 'flex') {
-        const contents = JSON.parse(action.params.content);
+        const contents = JSON.parse(action.params.message ?? action.params.content);
         msg = { type: 'flex', altText: action.params.altText || extractFlexAltText(contents), contents };
       } else {
-        msg = { type: 'text', text: action.params.content };
+        msg = { type: 'text', text: action.params.message ?? action.params.content };
       }
       // Prefer replyMessage (free) when replyToken is available
       if (payload.replyToken) {
